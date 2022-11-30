@@ -11,7 +11,22 @@
 
     <maui:CircularGauge
       WidthRequest="250"
-      HeightRequest="250" />
+      HeightRequest="250"
+      RangeStart="50.0"
+      RangeEnd="200.0"
+      Value="{Binding Value, Source={x:Reference ValueSlider}}"
+      GaugeWidth="25.0"
+      NeedleLength="110.0"
+      NeedleWidth="10.0"
+      NeedleOffset="20.0"
+      BaseWidth="20.0"
+      IgnorePixelScaling="True"/>
+
+    <Slider
+      x:Name="ValueSlider"
+      Minimum="50.0"
+      Maximum="200.0"
+      Value="75.0"/>
 
   </VerticalStackLayout>
 
