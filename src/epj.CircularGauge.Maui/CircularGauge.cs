@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using Microsoft.Maui.ApplicationModel;
+using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 
@@ -108,6 +109,12 @@ public class CircularGauge : SKCanvasView
         set => SetValue(BaseStrokeWidthProperty, value);
     }
 
+    public bool ShowScale
+    {
+        get => (bool)GetValue(ShowScaleProperty);
+        set => SetValue(ShowScaleProperty, value);
+    }
+
     public float ScaleDistance
     {
         get => (float)GetValue(ScaleDistanceProperty);
@@ -162,6 +169,12 @@ public class CircularGauge : SKCanvasView
         set => SetValue(BaseStrokeColorProperty, value);
     }
 
+    public Color ScaleColor
+    {
+        get => (Color)GetValue(ScaleColorProperty);
+        set => SetValue(ScaleColorProperty, value);
+    }
+
     public List<Color> GaugeGradientColors { get; set; } = new List<Color>();
 
     #endregion
@@ -179,15 +192,17 @@ public class CircularGauge : SKCanvasView
     public static readonly BindableProperty NeedleOffsetProperty = BindableProperty.Create(nameof(NeedleOffset), typeof(float), typeof(CircularGauge), DefaultNeedleOffset, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty BaseWidthProperty = BindableProperty.Create(nameof(BaseWidth), typeof(float), typeof(CircularGauge), DefaultBaseWidth, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty BaseStrokeWidthProperty = BindableProperty.Create(nameof(BaseStrokeWidth), typeof(float), typeof(CircularGauge), DefaultBaseStrokeWidth, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty ShowScaleProperty = BindableProperty.Create(nameof(ShowScale), typeof(bool), typeof(CircularGauge), true, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty ScaleDistanceProperty = BindableProperty.Create(nameof(ScaleDistance), typeof(float), typeof(CircularGauge), DefaultScaleDistance, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty ScaleLengthProperty = BindableProperty.Create(nameof(ScaleLength), typeof(float), typeof(CircularGauge), DefaultScaleLength, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty ScaleThicknessProperty = BindableProperty.Create(nameof(ScaleThickness), typeof(float), typeof(CircularGauge), DefaultScaleThickness, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty ScaleUnitsProperty = BindableProperty.Create(nameof(ScaleUnits), typeof(int), typeof(CircularGauge), DefaultScaleUnits, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty DrawBaseStrokeBeforeFillProperty = BindableProperty.Create(nameof(DrawBaseStrokeBeforeFill), typeof(bool), typeof(CircularGauge), false, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty GaugeColorProperty = BindableProperty.Create(nameof(GaugeColor), typeof(Color), typeof(CircularGauge), Colors.Red, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty NeedleColorProperty = BindableProperty.Create(nameof(NeedleColor), typeof(Color), typeof(CircularGauge), Colors.Black, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty BaseColorProperty = BindableProperty.Create(nameof(BaseColor), typeof(Color), typeof(CircularGauge), Colors.Black, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty NeedleColorProperty = BindableProperty.Create(nameof(NeedleColor), typeof(Color), typeof(CircularGauge), Colors.LightGray, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty BaseColorProperty = BindableProperty.Create(nameof(BaseColor), typeof(Color), typeof(CircularGauge), Colors.LightGray, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty BaseStrokeColorProperty = BindableProperty.Create(nameof(BaseStrokeColor), typeof(Color), typeof(CircularGauge), Colors.DimGray, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty ScaleColorProperty = BindableProperty.Create(nameof(ScaleColor), typeof(Color), typeof(CircularGauge), Colors.LightGray, propertyChanged: OnBindablePropertyChanged);
 
     private static void OnBindablePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -226,6 +241,7 @@ public class CircularGauge : SKCanvasView
         _adjustedStartAngle = StartAngle + 90.0f;
 
         DrawGauge();
+        DrawScale();
         DrawNeedle();
         DrawNeedleBase();
     }
@@ -253,6 +269,61 @@ public class CircularGauge : SKCanvasView
         paint.Style = SKPaintStyle.Stroke;
         paint.StrokeWidth = GaugeWidth;
         _canvas.DrawPath(path, paint);
+    }
+
+    private void DrawScale()
+    {
+        if (!ShowScale)
+        {
+            return;
+        }
+
+        //calculate amount and divisor for scale units
+        var scaleDivisor = (RangeEnd - RangeStart) / (float)ScaleUnits;
+        var elementCount = (int)Math.Floor(scaleDivisor);
+
+        //we may be able to squeeze in one more scale element
+        if ((scaleDivisor - elementCount) * ScaleUnits > 1.0f)
+        {
+            elementCount += 1;
+        }
+
+        //account for scale fractions
+        var clipFactor = elementCount / scaleDivisor;
+        var clippedAngle = SweepAngle * clipFactor;
+
+        //calculate angles for scale
+        var angles = new float[elementCount];
+        for (var i = 0; i < elementCount; i++)
+        {
+            angles[i] = clippedAngle / elementCount * i;
+        }
+
+        //rotate canvas before drawing scale element
+        _canvas.Save();
+        _canvas.RotateDegrees(_adjustedStartAngle, _center.X, _center.Y);
+
+        //draw scale elements for each angle
+        foreach (var angle in angles)
+        {
+            var rad = angle.DegreeToRadian();
+            var p0 = rad.ToPointOnCircle(_center, _scaleRect.Width / 2);
+            var p1 = rad.ToPointOnCircle(_center, _scaleRect.Width / 2 - ScaleLength);
+
+            using var path = new SKPath();
+            path.AddPoly(new[] { p0, p1 }, close: false);
+
+            _canvas.DrawPath(path, new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = ScaleColor.ToSKColor(),
+                StrokeWidth = ScaleThickness,
+                IsAntialias = true
+            });
+        }
+
+        //rotate canvas back to original position
+        _canvas.Restore();
     }
 
     private void DrawNeedleBase()
@@ -292,6 +363,7 @@ public class CircularGauge : SKCanvasView
     private void DrawNeedle()
     {
         using var needlePath = new SKPath();
+
         //first set up needle pointing towards 0 degrees (or 6 o'clock)
         var widthOffset = NeedleWidth / 2.0f;
         var needleOffset = NeedleOffset;
