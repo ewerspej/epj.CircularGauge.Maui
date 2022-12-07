@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.ApplicationModel;
-using SkiaSharp;
+﻿using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 
@@ -145,6 +144,12 @@ public class CircularGauge : SKCanvasView
         set => SetValue(DrawBaseStrokeBeforeFillProperty, value);
     }
 
+    public bool DrawNeedleOnTopOfBase
+    {
+        get => (bool)GetValue(DrawNeedleOnTopOfBaseProperty);
+        set => SetValue(DrawNeedleOnTopOfBaseProperty, value);
+    }
+
     public Color GaugeColor
     {
         get => (Color)GetValue(GaugeColorProperty);
@@ -198,6 +203,7 @@ public class CircularGauge : SKCanvasView
     public static readonly BindableProperty ScaleThicknessProperty = BindableProperty.Create(nameof(ScaleThickness), typeof(float), typeof(CircularGauge), DefaultScaleThickness, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty ScaleUnitsProperty = BindableProperty.Create(nameof(ScaleUnits), typeof(int), typeof(CircularGauge), DefaultScaleUnits, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty DrawBaseStrokeBeforeFillProperty = BindableProperty.Create(nameof(DrawBaseStrokeBeforeFill), typeof(bool), typeof(CircularGauge), false, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty DrawNeedleOnTopOfBaseProperty = BindableProperty.Create(nameof(DrawNeedleOnTopOfBase), typeof(bool), typeof(CircularGauge), false, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty GaugeColorProperty = BindableProperty.Create(nameof(GaugeColor), typeof(Color), typeof(CircularGauge), Colors.Red, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty NeedleColorProperty = BindableProperty.Create(nameof(NeedleColor), typeof(Color), typeof(CircularGauge), Colors.LightGray, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty BaseColorProperty = BindableProperty.Create(nameof(BaseColor), typeof(Color), typeof(CircularGauge), Colors.LightGray, propertyChanged: OnBindablePropertyChanged);
@@ -242,8 +248,17 @@ public class CircularGauge : SKCanvasView
 
         DrawGauge();
         DrawScale();
-        DrawNeedle();
-        DrawNeedleBase();
+
+        if (DrawNeedleOnTopOfBase)
+        {
+            DrawNeedleBase();
+            DrawNeedle();
+        }
+        else
+        {
+            DrawNeedle();
+            DrawNeedleBase();
+        }
     }
 
     private void DrawGauge()
