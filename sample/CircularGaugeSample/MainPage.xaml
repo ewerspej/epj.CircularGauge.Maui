@@ -12,8 +12,27 @@
     <maui:CircularGauge
       WidthRequest="250"
       HeightRequest="250"
-      Value="{Binding Value, Source={x:Reference ValueSlider}}">
-      <!--<maui:CircularGauge.GaugeGradientColors>
+      Value="{Binding Value, Source={x:Reference ValueSlider}}"
+      StartAngle="45.0"
+      SweepAngle="270.0"
+      GaugeWidth="25.0"
+      MinValue="0.0"
+      MaxValue="100.0"
+      NeedleLength="120.0"
+      NeedleWidth="10.0"
+      NeedleOffset="20.0"
+      BaseWidth="20.0"
+      BaseStrokeWidth="4.0"
+      ScaleLength="8.0"
+      ScaleDistance="4.0"
+      ScaleThickness="3.0"
+      ScaleUnits="10"
+      GaugeColor="Red"
+      NeedleColor="LightGray"
+      BaseColor="LightGray"
+      BaseStrokeColor="DimGray"
+      ScaleColor="LightGray">
+      <maui:CircularGauge.GaugeGradientColors>
         <Color>DarkGreen</Color>
         <Color>DarkGreen</Color>
         <Color>DarkGreen</Color>
@@ -23,7 +42,7 @@
         <Color>OrangeRed</Color>
         <Color>DarkRed</Color>
         <Color>DarkRed</Color>
-      </maui:CircularGauge.GaugeGradientColors>-->
+      </maui:CircularGauge.GaugeGradientColors>
     </maui:CircularGauge>
 
     <Slider

@@ -12,8 +12,8 @@ public class CircularGauge : SKCanvasView
     private const float DefaultStartAngle = 45.0f;
     private const float DefaultSweepAngle = 270.0f;
     private const float DefaultGaugeWidth = 25.0f;
-    private const float DefaultRangeStart = 0.0f;
-    private const float DefaultRangeEnd = 100.0f;
+    private const float DefaultMinValue = 0.0f;
+    private const float DefaultMaxValue = 100.0f;
     private const float DefaultNeedleLength = 120.0f;
     private const float DefaultNeedleWidth = 10.0f;
     private const float DefaultNeedleOffset = 20.0f;
@@ -66,16 +66,16 @@ public class CircularGauge : SKCanvasView
         set => SetValue(GaugeWidthProperty, value);
     }
 
-    public float RangeStart
+    public float MinValue
     {
-        get => (float)GetValue(RangeStartProperty);
-        set => SetValue(RangeStartProperty, value);
+        get => (float)GetValue(MinValueProperty);
+        set => SetValue(MinValueProperty, value);
     }
 
-    public float RangeEnd
+    public float MaxValue
     {
-        get => (float)GetValue(RangeEndProperty);
-        set => SetValue(RangeEndProperty, value);
+        get => (float)GetValue(MaxValueProperty);
+        set => SetValue(MaxValueProperty, value);
     }
 
     public float NeedleLength
@@ -190,8 +190,8 @@ public class CircularGauge : SKCanvasView
     public static readonly BindableProperty StartAngleProperty = BindableProperty.Create(nameof(StartAngle), typeof(float), typeof(CircularGauge), DefaultStartAngle, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty SweepAngleProperty = BindableProperty.Create(nameof(SweepAngle), typeof(float), typeof(CircularGauge), DefaultSweepAngle, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty GaugeWidthProperty = BindableProperty.Create(nameof(GaugeWidth), typeof(float), typeof(CircularGauge), DefaultGaugeWidth, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty RangeStartProperty = BindableProperty.Create(nameof(RangeStart), typeof(float), typeof(CircularGauge), DefaultRangeStart, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty RangeEndProperty = BindableProperty.Create(nameof(RangeEnd), typeof(float), typeof(CircularGauge), DefaultRangeEnd, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(float), typeof(CircularGauge), DefaultMinValue, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(float), typeof(CircularGauge), DefaultMaxValue, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty NeedleLengthProperty = BindableProperty.Create(nameof(NeedleLength), typeof(float), typeof(CircularGauge), DefaultNeedleLength, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty NeedleWidthProperty = BindableProperty.Create(nameof(NeedleWidth), typeof(float), typeof(CircularGauge), DefaultNeedleWidth, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty NeedleOffsetProperty = BindableProperty.Create(nameof(NeedleOffset), typeof(float), typeof(CircularGauge), DefaultNeedleOffset, propertyChanged: OnBindablePropertyChanged);
@@ -297,7 +297,7 @@ public class CircularGauge : SKCanvasView
         }
 
         //calculate amount and divisor for scale units
-        var scaleDivisor = (RangeEnd - RangeStart) / (float)ScaleUnits;
+        var scaleDivisor = (MaxValue - MinValue) / (float)ScaleUnits;
         var elementCount = (int)Math.Floor(scaleDivisor) + 1;
 
         //we may be able to squeeze in one more scale element
@@ -395,7 +395,7 @@ public class CircularGauge : SKCanvasView
         needlePath.Close();
 
         //then calculate needle position in degrees
-        var needlePosition = StartAngle + ((Value - RangeStart) / (RangeEnd - RangeStart) * SweepAngle);
+        var needlePosition = StartAngle + ((Value - MinValue) / (MaxValue - MinValue) * SweepAngle);
 
         //finally rotate needle to actual value
         needlePath.Transform(SKMatrix.CreateRotationDegrees(needlePosition, _center.X, _center.Y));

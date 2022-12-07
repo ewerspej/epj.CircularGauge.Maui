@@ -15,7 +15,29 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Title>Circular Gauge for MAUI</Title>
+		<Version>1.0.0-pre</Version>
+		<Authors>ewerspej</Authors>
+		<Description>A simple and customizable circular gauge for .NET MAUI</Description>
+		<PackageProjectUrl>https://github.com/ewerspej/epj.CircularGauge.Maui</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ewerspej/epj.CircularGauge.Maui</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>radial; circular; gauge; progress; status; ring; maui; control; arc; skiasharp; android; ios; cross-platform</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
