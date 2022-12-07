@@ -19,12 +19,25 @@
       NeedleLength="120.0"
       NeedleWidth="10.0"
       NeedleOffset="20.0"
-      ScaleUnits="5"
+      ScaleUnits="10"
       ScaleThickness="3"
       ScaleLength="8"
       ScaleDistance="4"
       BaseWidth="20.0"
-      IgnorePixelScaling="True"/>
+      SweepAngle="270"
+      IgnorePixelScaling="True">
+      <maui:CircularGauge.GaugeGradientColors>
+        <Color>DarkGreen</Color>
+        <Color>DarkGreen</Color>
+        <Color>DarkGreen</Color>
+        <Color>YellowGreen</Color>
+        <Color>Yellow</Color>
+        <Color>Yellow</Color>
+        <Color>OrangeRed</Color>
+        <Color>DarkRed</Color>
+        <Color>DarkRed</Color>
+      </maui:CircularGauge.GaugeGradientColors>
+    </maui:CircularGauge>
 
     <Slider
       x:Name="ValueSlider"
