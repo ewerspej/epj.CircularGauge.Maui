@@ -1,5 +1,6 @@
 # epj.CircularGauge.Maui
 ![License](https://img.shields.io/github/license/ewerspej/epj.CircularGauge.Maui)
+[![Nuget](https://img.shields.io/nuget/v/epj.CircularGauge.Maui)](https://www.nuget.org/packages/epj.CircularGauge.Maui/)
 
 Circular Gauge component for .NET MAUI
 
