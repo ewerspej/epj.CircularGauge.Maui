@@ -68,10 +68,10 @@ public static class MauiProgram
              xmlns:maui="clr-namespace:epj.CircularGauge.Maui;assembly=epj.CircularGauge.Maui"
              x:Class="CircularGaugeSample.MainPage">
 
-  <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+  <VerticalStackLayout 
+    Spacing="25"
+    Padding="30,0"
+    VerticalOptions="Center">
 
     <maui:CircularGauge
       WidthRequest="250"
