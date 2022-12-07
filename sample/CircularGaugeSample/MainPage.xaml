@@ -16,9 +16,13 @@
       RangeEnd="200.0"
       Value="{Binding Value, Source={x:Reference ValueSlider}}"
       GaugeWidth="25.0"
-      NeedleLength="110.0"
+      NeedleLength="120.0"
       NeedleWidth="10.0"
       NeedleOffset="20.0"
+      ScaleUnits="5"
+      ScaleThickness="3"
+      ScaleLength="8"
+      ScaleDistance="4"
       BaseWidth="20.0"
       IgnorePixelScaling="True"/>
 

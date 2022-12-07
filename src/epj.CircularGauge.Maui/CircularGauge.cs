@@ -38,7 +38,7 @@ public class CircularGauge : SKCanvasView
     private float _adjustedStartAngle;
     private float _internalPadding = 10.0f;
     private int _size;
-    
+
     #endregion
 
     #region Properties
@@ -66,7 +66,7 @@ public class CircularGauge : SKCanvasView
         get => (float)GetValue(GaugeWidthProperty);
         set => SetValue(GaugeWidthProperty, value);
     }
-    
+
     public float RangeStart
     {
         get => (float)GetValue(RangeStartProperty);
@@ -162,7 +162,7 @@ public class CircularGauge : SKCanvasView
         get => (Color)GetValue(BaseColorProperty);
         set => SetValue(BaseColorProperty, value);
     }
-    
+
     public Color BaseStrokeColor
     {
         get => (Color)GetValue(BaseStrokeColorProperty);
@@ -280,7 +280,7 @@ public class CircularGauge : SKCanvasView
 
         //calculate amount and divisor for scale units
         var scaleDivisor = (RangeEnd - RangeStart) / (float)ScaleUnits;
-        var elementCount = (int)Math.Floor(scaleDivisor);
+        var elementCount = (int)Math.Floor(scaleDivisor) + 1;
 
         //we may be able to squeeze in one more scale element
         if ((scaleDivisor - elementCount) * ScaleUnits > 1.0f)
