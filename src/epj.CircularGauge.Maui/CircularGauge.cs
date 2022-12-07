@@ -8,21 +8,21 @@ public class CircularGauge : SKCanvasView
 {
     #region Default Values
 
-    private const float DefaultValue = 50.0f;
+    private const float DefaultValue = 0.0f;
     private const float DefaultStartAngle = 45.0f;
     private const float DefaultSweepAngle = 270.0f;
-    private const float DefaultGaugeWidth = 10.0f;
+    private const float DefaultGaugeWidth = 25.0f;
     private const float DefaultRangeStart = 0.0f;
     private const float DefaultRangeEnd = 100.0f;
-    private const float DefaultNeedleLength = 128.0f;
-    private const float DefaultNeedleWidth = 18.0f;
-    private const float DefaultNeedleOffset = 18.0f;
-    private const float DefaultBaseWidth = 24.0f;
+    private const float DefaultNeedleLength = 120.0f;
+    private const float DefaultNeedleWidth = 10.0f;
+    private const float DefaultNeedleOffset = 20.0f;
+    private const float DefaultBaseWidth = 20.0f;
     private const float DefaultBaseStrokeWidth = 4.0f;
-    private const float DefaultScaleLength = 10.0f;
+    private const float DefaultScaleLength = 8.0f;
     private const float DefaultScaleDistance = 4.0f;
-    private const float DefaultScaleThickness = 4.0f;
-    private const int DefaultScaleUnits = 5;
+    private const float DefaultScaleThickness = 3.0f;
+    private const int DefaultScaleUnits = 10;
 
     #endregion
 
@@ -217,7 +217,10 @@ public class CircularGauge : SKCanvasView
 
     #endregion
 
-    public CircularGauge() { }
+    public CircularGauge()
+    {
+        IgnorePixelScaling = true;
+    }
 
     protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
@@ -231,7 +234,7 @@ public class CircularGauge : SKCanvasView
 
         //offsets are used to always center the dial inside the canvas and move the stroke inwards only
         var scaleOffset = _internalPadding;
-        var dialOffset = GaugeWidth / 2 + _internalPadding + ScaleLength + ScaleDistance;
+        var dialOffset = GaugeWidth / 2 + scaleOffset + ScaleLength + ScaleDistance;
 
         //setup the drawing rectangle
         _scaleRect = new SKRect(scaleOffset, scaleOffset, _size - scaleOffset, _size - scaleOffset);
