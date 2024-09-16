@@ -5,7 +5,12 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularGaugeSample", "CircularGaugeSample.csproj", "{03E4DF18-58D8-4236-A664-A13D7F4C732F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "epj.CircularGauge.Maui", "..\..\src\epj.CircularGauge.Maui\epj.CircularGauge.Maui.csproj", "{4C2A5E67-2B5F-48B0-85ED-8F66057E61E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "epj.CircularGauge.Maui", "..\..\src\epj.CircularGauge.Maui\epj.CircularGauge.Maui.csproj", "{4C2A5E67-2B5F-48B0-85ED-8F66057E61E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6C464B0-7A0F-4AE0-9052-9C56C6290723}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.editorconfig = ..\..\.editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

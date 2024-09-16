@@ -8,21 +8,21 @@ public class CircularGauge : SKCanvasView
 {
     #region Default Values
 
-    private const float DefaultValue = 0.0f;
-    private const float DefaultStartAngle = 45.0f;
-    private const float DefaultSweepAngle = 270.0f;
-    private const float DefaultGaugeWidth = 25.0f;
-    private const float DefaultMinValue = 0.0f;
-    private const float DefaultMaxValue = 100.0f;
-    private const float DefaultNeedleLength = 120.0f;
-    private const float DefaultNeedleWidth = 10.0f;
-    private const float DefaultNeedleOffset = 20.0f;
-    private const float DefaultBaseWidth = 20.0f;
-    private const float DefaultBaseStrokeWidth = 4.0f;
-    private const float DefaultScaleLength = 8.0f;
-    private const float DefaultScaleDistance = 4.0f;
-    private const float DefaultScaleThickness = 3.0f;
-    private const int DefaultScaleUnits = 10;
+    private const float _defaultValue = 0.0f;
+    private const float _defaultStartAngle = 45.0f;
+    private const float _defaultSweepAngle = 270.0f;
+    private const float _defaultGaugeWidth = 25.0f;
+    private const float _defaultMinValue = 0.0f;
+    private const float _defaultMaxValue = 100.0f;
+    private const float _defaultNeedleLength = 120.0f;
+    private const float _defaultNeedleWidth = 10.0f;
+    private const float _defaultNeedleOffset = 20.0f;
+    private const float _defaultBaseWidth = 20.0f;
+    private const float _defaultBaseStrokeWidth = 4.0f;
+    private const float _defaultScaleLength = 8.0f;
+    private const float _defaultScaleDistance = 4.0f;
+    private const float _defaultScaleThickness = 3.0f;
+    private const int _defaultScaleUnits = 10;
 
     #endregion
 
@@ -186,22 +186,22 @@ public class CircularGauge : SKCanvasView
 
     #region BindableProperties
 
-    public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(float), typeof(CircularGauge), DefaultValue, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty StartAngleProperty = BindableProperty.Create(nameof(StartAngle), typeof(float), typeof(CircularGauge), DefaultStartAngle, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty SweepAngleProperty = BindableProperty.Create(nameof(SweepAngle), typeof(float), typeof(CircularGauge), DefaultSweepAngle, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty GaugeWidthProperty = BindableProperty.Create(nameof(GaugeWidth), typeof(float), typeof(CircularGauge), DefaultGaugeWidth, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(float), typeof(CircularGauge), DefaultMinValue, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(float), typeof(CircularGauge), DefaultMaxValue, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty NeedleLengthProperty = BindableProperty.Create(nameof(NeedleLength), typeof(float), typeof(CircularGauge), DefaultNeedleLength, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty NeedleWidthProperty = BindableProperty.Create(nameof(NeedleWidth), typeof(float), typeof(CircularGauge), DefaultNeedleWidth, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty NeedleOffsetProperty = BindableProperty.Create(nameof(NeedleOffset), typeof(float), typeof(CircularGauge), DefaultNeedleOffset, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty BaseWidthProperty = BindableProperty.Create(nameof(BaseWidth), typeof(float), typeof(CircularGauge), DefaultBaseWidth, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty BaseStrokeWidthProperty = BindableProperty.Create(nameof(BaseStrokeWidth), typeof(float), typeof(CircularGauge), DefaultBaseStrokeWidth, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(float), typeof(CircularGauge), _defaultValue, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty StartAngleProperty = BindableProperty.Create(nameof(StartAngle), typeof(float), typeof(CircularGauge), _defaultStartAngle, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty SweepAngleProperty = BindableProperty.Create(nameof(SweepAngle), typeof(float), typeof(CircularGauge), _defaultSweepAngle, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty GaugeWidthProperty = BindableProperty.Create(nameof(GaugeWidth), typeof(float), typeof(CircularGauge), _defaultGaugeWidth, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(float), typeof(CircularGauge), _defaultMinValue, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(float), typeof(CircularGauge), _defaultMaxValue, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty NeedleLengthProperty = BindableProperty.Create(nameof(NeedleLength), typeof(float), typeof(CircularGauge), _defaultNeedleLength, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty NeedleWidthProperty = BindableProperty.Create(nameof(NeedleWidth), typeof(float), typeof(CircularGauge), _defaultNeedleWidth, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty NeedleOffsetProperty = BindableProperty.Create(nameof(NeedleOffset), typeof(float), typeof(CircularGauge), _defaultNeedleOffset, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty BaseWidthProperty = BindableProperty.Create(nameof(BaseWidth), typeof(float), typeof(CircularGauge), _defaultBaseWidth, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty BaseStrokeWidthProperty = BindableProperty.Create(nameof(BaseStrokeWidth), typeof(float), typeof(CircularGauge), _defaultBaseStrokeWidth, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty ShowScaleProperty = BindableProperty.Create(nameof(ShowScale), typeof(bool), typeof(CircularGauge), true, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty ScaleDistanceProperty = BindableProperty.Create(nameof(ScaleDistance), typeof(float), typeof(CircularGauge), DefaultScaleDistance, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty ScaleLengthProperty = BindableProperty.Create(nameof(ScaleLength), typeof(float), typeof(CircularGauge), DefaultScaleLength, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty ScaleThicknessProperty = BindableProperty.Create(nameof(ScaleThickness), typeof(float), typeof(CircularGauge), DefaultScaleThickness, propertyChanged: OnBindablePropertyChanged);
-    public static readonly BindableProperty ScaleUnitsProperty = BindableProperty.Create(nameof(ScaleUnits), typeof(int), typeof(CircularGauge), DefaultScaleUnits, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty ScaleDistanceProperty = BindableProperty.Create(nameof(ScaleDistance), typeof(float), typeof(CircularGauge), _defaultScaleDistance, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty ScaleLengthProperty = BindableProperty.Create(nameof(ScaleLength), typeof(float), typeof(CircularGauge), _defaultScaleLength, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty ScaleThicknessProperty = BindableProperty.Create(nameof(ScaleThickness), typeof(float), typeof(CircularGauge), _defaultScaleThickness, propertyChanged: OnBindablePropertyChanged);
+    public static readonly BindableProperty ScaleUnitsProperty = BindableProperty.Create(nameof(ScaleUnits), typeof(int), typeof(CircularGauge), _defaultScaleUnits, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty DrawBaseStrokeBeforeFillProperty = BindableProperty.Create(nameof(DrawBaseStrokeBeforeFill), typeof(bool), typeof(CircularGauge), false, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty DrawNeedleOnTopOfBaseProperty = BindableProperty.Create(nameof(DrawNeedleOnTopOfBase), typeof(bool), typeof(CircularGauge), false, propertyChanged: OnBindablePropertyChanged);
     public static readonly BindableProperty GaugeColorProperty = BindableProperty.Create(nameof(GaugeColor), typeof(Color), typeof(CircularGauge), Colors.Red, propertyChanged: OnBindablePropertyChanged);
